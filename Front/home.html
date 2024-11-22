@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phishing - Hack'N'Tenders</title>
+    <title>Hack'N'Tenders</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -11,9 +11,15 @@
     <div class="header-content">
         <img src="HACKNTENDERS.png" alt="Hack'N'Tenders Logo" class="logo">
         <h1 class="title">Hack'N'Tenders</h1>
+        <div class="header-right">
+            <div class="auth-buttons">
+                <button class="auth-btn" onclick="location.href='login.html'">Se connecter</button>
+                <button class="auth-btn" onclick="location.href='signup.html'">Créer un compte</button>
+            </div>
+        </div>
     </div>
     <nav class="navbar">
-        <button class="nav-btn" onclick="location.href='home.html'">Accueil</button>
+        <button class="nav-btn" onclick="location.href='phishing.html'">Phishing</button>
         <button class="nav-btn" onclick="location.href='ddos.html'">DDoS</button>
         <button class="nav-btn" onclick="location.href='sql_injection.html'">Injections SQL</button>
         <button class="nav-btn" onclick="location.href='about.html'">À propos</button>
@@ -22,12 +28,11 @@
 
 <main class="main-content">
     <section class="intro-section">
-        <h2>Phishing</h2>
+        <h2>Bienvenue sur Hack'N'Tenders</h2>
         <p>
-            Découvrez comment fonctionne le phishing et comment s'en protéger.
-            Cliquez sur le bouton ci-dessous pour lancer un terminal simulant une attaque.
+            Ce site vise à sensibiliser aux cyberattaques en proposant des tutoriels interactifs. <br>
+            Découvrez des conseils et des outils pour protéger vos données.
         </p>
-        <button class="terminal-btn" onclick="launchTerminal()">Lancer le terminal</button>
     </section>
 </main>
 
