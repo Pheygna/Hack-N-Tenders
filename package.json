@@ -1,0 +1,28 @@
+{
+  "name": "hack'n'tenders",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pheygna/Hack-N-Tenders.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pheygna/Hack-N-Tenders/issues"
+  },
+  "homepage": "https://github.com/Pheygna/Hack-N-Tenders#readme",
+  "dependencies": {
+    "express": "^4.21.1",
+    "node-pty": "^1.0.0",
+    "path": "^0.12.7",
+    "uuid": "^11.0.3",
+    "ws": "^8.18.0"
+  }
+}

@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+  phishing:
+    build:
+      context: ./Phishing
+      dockerfile: Dockerfile
+    container_name: phishing_container
+    tty: true
+
+  sql_injection:
+    build:
+      context: ./SQL_Injection
+      dockerfile: Dockerfile
+    container_name: sql_injection_container
+    tty: true
+
+  ddos:
+    build:
+      context: ./DDOS
+      dockerfile: Dockerfile
+    container_name: ddos_container
+    tty: true

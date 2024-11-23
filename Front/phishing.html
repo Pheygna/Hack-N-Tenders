@@ -27,12 +27,21 @@
             Découvrez comment fonctionne le phishing et comment s'en protéger.
             Cliquez sur le bouton ci-dessous pour lancer un terminal simulant une attaque.
         </p>
-        <button class="terminal-btn" onclick="launchTerminal()">Lancer le terminal</button>
+        <button class="terminal-btn" onclick="openTerminal()">Lancer le terminal</button>
+
+<script>
+    function openTerminal() {
+        // Redirige vers la page du terminal
+        window.open('terminal.html', '_blank');
+    }
+</script>
+
     </section>
 </main>
 
 <footer class="footer">
     <p>&copy; 2024 Hack'N'Tenders - Tous droits réservés.</p>
 </footer>
+
 </body>
 </html>

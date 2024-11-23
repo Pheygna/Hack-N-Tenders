@@ -1,0 +1,11 @@
+De : support@fakebank.com
+À : employe@entreprise.com
+Objet : Mise à jour de votre compte
+
+Bonjour,
+
+Nous avons remarqué une activité inhabituelle sur votre compte. Veuillez sécuriser votre compte en cliquant sur le lien suivant :
+http://fakebank-login.com
+
+Merci,
+L'équipe de sécurité

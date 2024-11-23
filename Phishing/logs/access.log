@@ -1,0 +1,4 @@
+[2024-11-23 10:00:00] - Connexion réussie : utilisateur admin
+[2024-11-23 10:05:32] - Tentative de connexion échouée : utilisateur guest
+[2024-11-23 10:10:15] - Connexion réussie : utilisateur user1
+[2024-11-23 10:20:48] - Tentative de connexion suspecte depuis l'IP 192.168.1.101

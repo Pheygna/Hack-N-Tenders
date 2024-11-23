@@ -27,12 +27,18 @@
             Découvrez ce qu'est une attaque par Déni de Service Distribué (DDoS) et ses conséquences.
             Cliquez sur le bouton ci-dessous pour lancer une simulation dans un terminal.
         </p>
-        <button class="terminal-btn" onclick="launchTerminal()">Lancer le terminal</button>
+        <button class="terminal-btn" onclick="launchTerminal('DDoS')">Lancer le terminal</button>
     </section>
 </main>
 
 <footer class="footer">
     <p>&copy; 2024 Hack'N'Tenders - Tous droits réservés.</p>
 </footer>
+
+<script>
+    function launchTerminal(lesson) {
+        window.open(`terminal.html?lesson=${lesson}`, '_blank');
+    }
+</script>
 </body>
 </html>
