@@ -9,8 +9,16 @@
 <body>
 <header class="header">
     <div class="header-content">
-        <img src="HACKNTENDERS.png" alt="Hack'N'Tenders Logo" class="logo">
+        <a href="home.html">
+            <img src="HACKNTENDERS.png" alt="Hack'N'Tenders Logo" class="logo">
+        </a>
         <h1 class="title">Hack'N'Tenders</h1>
+        <div class="header-right">
+            <div class="auth-buttons">
+                <button class="auth-btn" onclick="location.href='login.html'">Se connecter</button>
+                <button class="auth-btn" onclick="location.href='signup.html'">Créer un compte</button>
+            </div>
+        </div>
     </div>
     <nav class="navbar">
         <button class="nav-btn" onclick="location.href='home.html'">Accueil</button>
@@ -29,12 +37,12 @@
         </p>
         <button class="terminal-btn" onclick="openTerminal()">Lancer le terminal</button>
 
-<script>
-    function openTerminal() {
-        // Redirige vers la page du terminal
-        window.open('terminal.html', '_blank');
-    }
-</script>
+        <script>
+            function openTerminal() {
+                // Redirige vers la page du terminal
+                window.open('terminal.html', '_blank');
+            }
+        </script>
 
     </section>
 </main>

@@ -19,9 +19,12 @@
   },
   "homepage": "https://github.com/Pheygna/Hack-N-Tenders#readme",
   "dependencies": {
+    "bcrypt": "^6.0.0",
+    "body-parser": "^2.2.0",
     "express": "^4.21.1",
     "node-pty": "^1.0.0",
     "path": "^0.12.7",
+    "pg": "^8.16.3",
     "uuid": "^11.0.3",
     "ws": "^8.18.0"
   }
