@@ -6,11 +6,32 @@
     <title>Se connecter - Hack'N'Tenders</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
+<script>
+    function toggleTheme() {
+        const body = document.body;
+        const icon = document.getElementById("theme-icon");
+        const currentTheme = body.getAttribute("data-theme");
+
+        if (currentTheme === "dark") {
+            body.setAttribute("data-theme", "light");
+            icon.innerHTML = "&#9790;"; // soleil noir
+        } else {
+            body.setAttribute("data-theme", "dark");
+            icon.innerHTML = "&#9728;"; // lune noire
+        }
+    }
+</script>
+
 <body>
 <header class="header">
     <div class="header-content">
         <img src="HACKNTENDERS.png" alt="Hack'N'Tenders Logo" class="logo">
         <h1 class="title">Hack'N'Tenders</h1>
+        <div class="header-right">
+            <button class="theme-toggle-btn" onclick="toggleTheme()">
+                <span id="theme-icon">&#9728;</span> <!-- Lune noire -->
+            </button>        </div>
     </div>
     <nav class="navbar">
         <button class="nav-btn" onclick="location.href='home.html'">Accueil</button>
