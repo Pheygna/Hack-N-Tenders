@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>À propos - Hack'N'Tenders</title>
+    <title>Brute Force - Hack'N'Tenders</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -26,37 +26,46 @@
 <body>
 <header class="header">
     <div class="header-content">
-        <a href="home.html">
-            <img src="HACKNTENDERS.png" alt="Hack'N'Tenders Logo" class="logo">
-        </a>
-        <h1 class="title">À propos</h1>
+        <img src="HACKNTENDERS.png" alt="Hack'N'Tenders Logo" class="logo">
+        <h1 class="title">Hack'N'Tenders</h1>
         <div class="header-right">
             <button class="theme-toggle-btn" onclick="toggleTheme()">
                 <span id="theme-icon">&#9728;</span> <!-- Lune noire -->
-            </button>
-            <div class="auth-buttons">
+            </button>            <div class="auth-buttons">
                 <button class="auth-btn" onclick="location.href='login.html'">Se connecter</button>
                 <button class="auth-btn" onclick="location.href='signup.html'">Créer un compte</button>
             </div>
         </div>
     </div>
+    <nav class="navbar">
+        <button class="nav-btn" onclick="location.href='home.html'">Accueil</button>
+        <button class="nav-btn" onclick="location.href='sql_injection.html'">Injections SQL</button>
+        <button class="nav-btn" onclick="location.href='phishing.html'">Phishing</button>
+        <button class="nav-btn" onclick="location.href='mitm.html'">Man-in-the-middle</button>
+        <button class="nav-btn" onclick="location.href='malware.html'">Malware</button>
+        <button class="nav-btn" onclick="location.href='about.html'">À propos</button>
+    </nav>
 </header>
 
 <main class="main-content">
-    <section class="about-section">
-        <h2>Qui sommes-nous ?</h2>
-        <p>Nous sommes <strong>Rémy Vignes-Ferrino</strong> et <strong>Gabriel Callet</strong>, étudiants en 3<sup>e</sup> année à l'<strong>ESGI</strong> (École Supérieure de Génie Informatique).</p>
-        <p>Hack'N'Tenders est un projet conçu pour sensibiliser les utilisateurs aux dangers des cyberattaques, telles que le phishing, les attaques DDoS, les injections SQL, et bien plus encore.</p>
-    </section>
-
-    <section class="mission-section">
-        <h2>Notre mission</h2>
-        <p>Nous avons pour objectif de créer une plateforme éducative et interactive qui permettra à chacun de comprendre et d’apprendre à se protéger contre ces menaces numériques.</p>
+    <section class="intro-section">
+        <h2>Brute Force</h2>
+        <p>
+            Découvrez comment une attaque par Brute Force permet de casser un mot de passe en testant de nombreuses combinaisons. <br>
+            Cliquez sur le bouton ci-dessous pour lancer une simulation dans un terminal.
+        </p>
+        <button class="terminal-btn" onclick="launchTerminal('Bruteforce')">Lancer le terminal</button>
     </section>
 </main>
 
 <footer class="footer">
     <p>&copy; 2024 Hack'N'Tenders - Tous droits réservés.</p>
 </footer>
+
+<script>
+    function launchTerminal(lesson) {
+        window.open(`terminal.html?lesson=${lesson}`, '_blank');
+    }
+</script>
 </body>
 </html>

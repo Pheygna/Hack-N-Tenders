@@ -297,3 +297,85 @@ input:focus {
 .login-link a:hover {
     text-decoration: underline;
 }
+
+/* Thème sombre par défaut */
+body[data-theme="dark"] {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+
+body[data-theme="dark"] .header,
+body[data-theme="dark"] .navbar,
+body[data-theme="dark"] .footer {
+    background-color: #1f1f1f;
+}
+
+/* Thème clair */
+body[data-theme="light"] p,
+body[data-theme="light"] {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+body[data-theme="light"] .header,
+body[data-theme="light"] .navbar,
+body[data-theme="light"] .footer {
+    background-color: #f0f0f0;
+}
+
+.nav-btn, .auth-btn, .theme-toggle-btn {
+    cursor: pointer;
+}
+
+.signup-link {
+    color: #ffffff !important; /* le texte du <p> sera toujours blanc */
+}
+
+.signup-link a {
+    color: #ffcc00; /* ton lien reste jaune */
+    text-decoration: none;
+}
+
+.signup-link a:hover {
+    text-decoration: underline;
+}
+
+.signup-link {
+    background: transparent !important;  /* plus aucun fond ne s'affiche */
+    color: #ffffff !important;           /* le texte du p reste blanc */
+    padding: 0;                          /* on enlève tout padding douteux */
+    margin: 0;                           /* on enlève tout margin douteux */
+    border: none;                        /* au cas où un style imposerait un contour */
+}
+
+.login-link {
+    color: #ffffff !important; /* le texte du <p> sera toujours blanc */
+}
+
+.login-link a {
+    color: #ffcc00; /* ton lien reste jaune */
+    text-decoration: none;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+.login-link {
+    background: transparent !important;  /* plus aucun fond ne s'affiche */
+    color: #ffffff !important;           /* le texte du p reste blanc */
+    padding: 0;                          /* on enlève tout padding douteux */
+    margin: 0;                           /* on enlève tout margin douteux */
+    border: none;                        /* au cas où un style imposerait un contour */
+}
+
+
+.about-section p,
+.mission-section p {
+    background: transparent !important; /* on supprime tout fond blanc */
+    color: #ffffff !important;          /* le texte reste blanc en toutes circonstances */
+    padding: 0;                          /* enlève tout padding qui pourrait provoquer un fond */
+    margin: 0 0 1em 0;                   /* un peu d'espace sous les paragraphes, ajustable */
+    border: none;                        /* au cas où */
+}
