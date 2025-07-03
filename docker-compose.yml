@@ -1,23 +1,42 @@
-version: '3.9'
+version: '3.8'
 
 services:
   phishing:
     build:
-      context: ./Phishing
-      dockerfile: Dockerfile
-    container_name: phishing_container
+      context: ./entrainement/phishing
+    image: my_image_phishing
+    container_name: terminal_phishing
+    stdin_open: true
     tty: true
 
   sql_injection:
     build:
-      context: ./SQL_Injection
-      dockerfile: Dockerfile
-    container_name: sql_injection_container
+      context: ./entrainement/sql_injection
+    image: my_image_sql_injection
+    container_name: terminal_sql_injection
+    stdin_open: true
     tty: true
 
-  ddos:
+  malware:
     build:
-      context: ./DDOS
-      dockerfile: Dockerfile
-    container_name: ddos_container
+      context: ./entrainement/malware
+    image: my_image_malware
+    container_name: terminal_malware
+    stdin_open: true
+    tty: true
+
+  mitm:
+    build:
+      context: ./entrainement/mitm
+    image: my_image_mitm
+    container_name: terminal_mitm
+    stdin_open: true
+    tty: true
+
+  brute_force:
+    build:
+      context: ./entrainement/brute_force
+    image: my_image_brute_force
+    container_name: terminal_brute_force
+    stdin_open: true
     tty: true

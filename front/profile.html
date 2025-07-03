@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Profil</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Mon Profil</h1>
+  <div id="profile-data">Chargement...</div>
+
+  <script>
+    fetch('/user-progress')
+      .then(res => res.json())
+      .then(data => {
+        const html = `
+          <p><strong>Nom d'utilisateur :</strong> ${data.username}</p>
+          <p><strong>Email :</strong> ${data.email}</p>
+          <p><strong>Score total :</strong> ${data.totalScore}</p>
+          <h3>Progression :</h3>
+          <ul>
+            ${data.progress.map(p => `<li>${p.lesson_name} — ${p.score} pts</li>`).join("")}
+          </ul>
+        `;
+        document.getElementById("profile-data").innerHTML = html;
+      })
+      .catch(err => {
+	  console.error("Erreur dans fetch /user-progress :", err);
+	  document.getElementById("profile-data").textContent = "Erreur de chargement des données.";
+	});
+
+  </script>
+</body>
+</html>
