@@ -4,17 +4,9 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!response.ok) {
                 throw new Error('Réponse non valide de /session-info');
             }
-            return response.text();
+            return response.json();
         })
-        .then(text => {
-            let data = {};
-            try {
-                data = JSON.parse(text);
-            } catch (err) {
-                console.warn("Données JSON invalides :", err);
-                return;
-            }
-
+        .then(data => {
             const headerRight = document.querySelector(".header-right");
             const authButtons = document.querySelector(".auth-buttons");
 
@@ -25,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 profileMenu.className = "profile-menu";
                 profileMenu.innerHTML = `
                     <button class="profile-btn">
-                        <img src="https://www.svgrepo.com/show/44094/menu.svg" alt="menu" style="width: 24px; height: 24px; filter: invert(1);">
+                        <img src="menu-icon.png" alt="Menu" class="menu-icon">
                     </button>
                     <div class="dropdown-content">
                         <p><strong>Email:</strong> ${data.email}</p>
@@ -33,15 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         <a href="/logout">Se déconnecter</a>
                     </div>
                 `;
-
-                // Afficher / cacher le menu au survol
-                profileMenu.addEventListener("mouseenter", () => {
-                    profileMenu.querySelector(".dropdown-content").style.display = "block";
-                });
-                profileMenu.addEventListener("mouseleave", () => {
-                    profileMenu.querySelector(".dropdown-content").style.display = "none";
-                });
-
                 headerRight.appendChild(profileMenu);
             }
         })
