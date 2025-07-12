@@ -1,0 +1,110 @@
+#!/bin/bash
+
+step_file="/root/.mitm_step"
+if [ ! -f "$step_file" ]; then echo 1 > "$step_file"; fi
+step=$(cat "$step_file")
+
+# Étape 1 : Analyse du réseau
+if [[ "$step" == "1" ]]; then
+    echo -e "\n📘 \033[36mÉtape 1 : Analyse du réseau\033[0m"
+    echo "Fichier : /tmp/network_capture.txt"
+    echo "Regardez les requêtes ARP ou DNS anormales"
+    echo -e "\033[33mIndice : une attaque ARP spoofing est peut-être visible\033[0m"
+    
+    read -p "Avez-vous analysé le fichier ? (y/n) : " read_net
+    if [[ "$read_net" != "y" ]]; then
+        echo -e "\033[31mVeuillez lire le fichier avec : grep -i 'who has' /tmp/network_capture.txt | sort | uniq -c \033[0m"
+        echo "Puis relancez : gsh"
+        exit 0
+    fi
+
+    read -p "Avez-vous repéré un comportement réseau suspect ? (y/n) : " resp
+    if [[ "$resp" == "y" ]]; then
+        echo -e "\033[32m✅ Étape 1 validée !\033[0m"
+        echo 2 > "$step_file"
+        exit 0
+    else
+        echo -e "\033[31m❌ Ce fichier contient un comportement anormal. Regardez les adresses MAC.\033[0m"
+        exit 0
+    fi
+fi
+
+
+# Étape 2 : Inspection certificat
+if [[ "$step" == "2" ]]; then
+    echo -e "\n📘 \033[36mÉtape 2 : Inspection d'un certificat\033[0m"
+    echo "Fichier : /tmp/fake_cert.pem"
+    echo -e "\033[33mAvant de répondre, vous pouvez examiner le fichier avec :\033[0m"
+    echo -e "   \033[32mcat /tmp/fake_cert.pem\033[0m"
+    echo
+
+    read -p "🟡 Avez-vous examiné le certificat ? (y/n) : " examined
+    if [[ "$examined" != "y" ]]; then
+        echo -e "\033[31mVeuillez d'abord examiner le certificat, puis relancez : gsh\033[0m"
+        exit 0
+    fi
+
+    read -p "🟡 Ce certificat est-il légitime ? (oui/non) : " answer
+    if [[ "$answer" == "non" || "$answer" == "n" ]]; then
+        echo -e "\033[32m✅ Étape 2 validée !\033[0m"
+        echo 3 > "$step_file"
+    else
+        echo -e "\033[31m❌ Mauvaise réponse. Indice : vérifiez l’émetteur, la validité et le CN (Common Name).\033[0m"
+    fi
+    exit 0
+fi
+
+
+# Étape 3 : Analyse des logs SSL
+if [[ "$step" == "3" ]]; then
+    echo -e "\n📘 \033[36mÉtape 3 : Analyse des logs SSL/TLS\033[0m"
+    echo "Fichier : /tmp/ssl_logs.txt"
+    echo "Repérez une interception ou une anomalie de communication"
+
+    read -p "🟡 Avez-vous examiné les logs ? (y/n) : " examined
+    if [[ "$examined" != "y" ]]; then
+        echo -e "\033[31mVeuillez lire le fichier avec : grep 'WARNING' /tmp/ssl_logs.txt\033[0m"
+        echo "Puis relancez : gsh"
+        exit 0
+    fi
+
+    read -p "Avez-vous identifié un comportement suspect ? (y/n) : " read_ssl
+    if [[ "$read_ssl" != "y" ]]; then
+        echo -e "\033[31mConseil : recherchez les connexions TLS man-in-the-middle.\033[0m"
+        exit 0
+    fi
+
+    read -p "🟡 Quelle anomalie est présente dans la trace ? : " ssl_answer
+    if echo "$ssl_answer" | grep -iq "pas\|self-signed\|intercepted\|faux certif"; then
+        echo -e "\033[32m✅ Étape 3 validée !\033[0m"
+        echo 4 > "$step_file"
+    else
+        echo -e "\033[31m❌ Ce n’est pas la bonne réponse. Indice : comparez les certificats.\033[0m"
+    fi
+    exit 0
+fi
+
+# Étape 4 : Observation simplifiée du trafic réseau
+if [[ "$step" == "4" ]]; then
+    echo -e "\n📘 \033[36mÉtape 4 : Observation du trafic réseau\033[0m"
+    echo "Fichier : /tmp/network_traffic.txt"
+    echo "Consultez ce fichier pour repérer une activité HTTP ou réseau anormale."
+    echo -e "\033[33mCommande suggérée : \033[32mcat /tmp/network_traffic.txt\033[0m"
+
+    read -p "🟡 Avez-vous consulté le fichier ? (y/n) : " seen_file
+    if [[ "$seen_file" != "y" ]]; then
+        echo -e "\033[31mVeuillez consulter le fichier réseau avant de continuer.\033[0m"
+        exit 0
+    fi
+
+    read -p "🟡 Quelle anomalie réseau avez-vous repérée ? : " network_issue
+    if echo "$network_issue" | grep -iq "http\|credential\|plain\|injection\|cleartext"; then
+        echo -e "\033[32m✅ Étape 4 validée !\033[0m"
+	echo ""
+	echo -e "\n🎉 \033[32mFélicitations, vous avez terminé le scénario MITM !\033[0m"
+        echo -e "🛡️ Pensez à sécuriser vos communications réseau avec HTTPS, DNSSEC et des certificats valides."
+    else
+        echo -e "\033[31m❌ Réponse incorrecte. Indice : cherchez des mots de passe ou requêtes HTTP en clair.\033[0m"
+    fi
+    exit 0
+fi

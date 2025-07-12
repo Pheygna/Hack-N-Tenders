@@ -1,0 +1,11 @@
+Résumé de sécurité :
+
+- De nombreuses tentatives de connexion échouées détectées depuis l’IP : 192.168.1.45
+- Utilisateur root visé à plusieurs reprises
+- Une connexion réussie à root a été enregistrée depuis une autre IP : 192.168.1.50
+- Probable brute-force : mot de passe root trop faible
+
+Recommandations :
+- Interdire les connexions SSH root directes
+- Mettre en place fail2ban ou équivalent
+- Imposer des mots de passe robustes et audit régulier

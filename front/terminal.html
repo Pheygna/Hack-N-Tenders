@@ -27,7 +27,9 @@
   <script>
     // Récupération des paramètres de l'URL
     const urlParams = new URLSearchParams(window.location.search);
-    const lesson = urlParams.get('lesson'); // Récupérer le paramètre "lesson" de l'URL
+    const lesson = (urlParams.get('lesson') || '').toLowerCase();
+    console.log("Leçon sélectionnée :", lesson);
+
 
     // Initialisation du terminal
     const terminal = new Terminal({
@@ -43,14 +45,14 @@
     const socket = new WebSocket(`ws://${window.location.hostname}:8080?lesson=${lesson}`);
 
     socket.onopen = () => {
+      console.log("WebSocket connecté");
       terminal.write(`Connexion au terminal pour la leçon : ${lesson}\r\n`);
-      if (lesson === 'SQL_Injection') {
-        terminal.write('Conseil : Attention aux champs de formulaire non sécurisés.\r\n');
-        terminal.write('Essayez une requête SQL malveillante comme : "OR 1=1;--"\r\n');
-      } else if (lesson === 'DDoS') {
-        terminal.write('Simulez une attaque DDoS avec un outil comme hping3 ou ab.\r\n');
-        terminal.write('Exemple : hping3 -S -p 80 -c 1000 <target-ip>\r\n');
-      } else {
+      if (lesson === 'sql_injection') {
+      } else if (lesson === 'phishing') {
+      } else if (lesson === 'malware') {
+      } else if (lesson === 'mitm') {
+      } else if (lesson === 'brute_force') {
+      }	else {
         terminal.write('Aucune leçon spécifique détectée.\r\n');
       }
     };
@@ -68,6 +70,7 @@
     };
 
     socket.onerror = () => {
+      console.error("Erreur WebSocket :", error);
       terminal.write('\r\nErreur de connexion au terminal.\r\n');
     };
   </script>

@@ -1,0 +1,114 @@
+#!/bin/bash
+
+step_file="/root/.brute_step"
+[ ! -f "$step_file" ] && echo 1 > "$step_file"
+step=$(cat "$step_file")
+
+# Étape 1
+if [[ "$step" == "1" ]]; then
+    echo -e "\n🔎 \033[36mÉtape 1 : Analyser les logs d'authentification.\033[0m"
+    echo "Commande utile : grep 'Failed password' /tmp/auth_attempts.log"
+
+    read -p "Avez-vous identifié les tentatives échouées ? (y/n) : " confirm
+    if [[ "$confirm" != "y" ]]; then
+        echo -e "\033[31m💡 Conseil : Utilisez grep pour trouver les tentatives échouées.\033[0m"
+        exit 0
+    fi
+
+    echo -e "\n🟡 Question : Quelle adresse IP a généré le plus d'échecs ?"
+    read answer
+    if [[ "$answer" == "192.168.1.45" ]]; then
+        echo -e "\033[32m✅ Étape 1 validée !\033[0m"
+	echo ""
+        echo 2 > "$step_file"
+    else
+        echo -e "\033[31m❌ Mauvaise réponse. Relisez bien les logs.\033[0m"
+    fi
+    exit 0
+fi
+
+# Étape 2
+if [[ "$step" == "2" ]]; then
+    echo -e "\n🔎 \033[36mÉtape 2 : Rechercher les connexions réussies.\033[0m"
+    echo "Commande utile : grep 'Accepted password' /tmp/auth_attempts.log"
+
+    read -p "Avez-vous trouvé une connexion réussie suspecte ? (y/n) : " confirm
+    if [[ "$confirm" != "y" ]]; then
+        echo -e "\033[31m💡 Conseil : Les connexions réussies peuvent aussi révéler une faille.\033[0m"
+        exit 0
+    fi
+
+    echo -e "\n🟡 Question : Quel compte a été compromis ?"
+    read answer
+    if echo "$answer" | grep -iq "user support\|usersupport"; then
+        echo -e "\033[32m✅ Étape 2 validée !\033[0m"
+	echo ""
+        echo 3 > "$step_file"
+    else
+        echo -e "\033[31m❌ Mauvaise réponse. Qui a réussi à se connecter ?\033[0m"
+    fi
+    exit 0
+fi
+
+# Étape 3
+if [[ "$step" == "3" ]]; then
+    echo -e "\n📘 \033[36mÉtape 3 : Identifier les mots de passe faibles utilisés.\033[0m"
+    echo "Commande utile : grep -Ff /tmp/common_passwords.txt /tmp/auth_attempts.log"
+
+    read -p "Avez-vous repéré un mot de passe faible utilisé ? (y/n) : " confirm
+    if [[ "$confirm" != "y" ]]; then
+        echo -e "\033[31m💡 Conseil : croisez les mots de passe communs avec les logs.\033[0m"
+        exit 0
+    fi
+
+    echo -e "\n🟡 Question : Quel mot de passe connu a été utilisé ?"
+    read answer
+    if echo "$answer" | grep -iqE "admin123|root|admin|123456"; then
+        echo -e "\033[32m✅ Étape 3 validée !\033[0m"
+	echo ""
+        echo 4 > "$step_file"
+    else
+        echo -e "\033[31m❌ Réessayez. Essayez avec grep -Ff.\033[0m"
+    fi
+    exit 0
+fi
+
+# Étape 4
+if [[ "$step" == "4" ]]; then
+    echo -e "\n🔎 \033[36mÉtape 4 : Utiliser les outils pour extraire les IP uniques.\033[0m"
+    echo "Commande utile : awk '{print \$11}' /tmp/auth_attempts.log | sort | uniq -c"
+
+    read -p "Avez-vous extrait les IP ? (y/n) : " confirm
+    if [[ "$confirm" != "y" ]]; then
+        echo -e "\033[31m💡 Astuce : awk + sort + uniq est très puissant !\033[0m"
+        exit 0
+    fi
+
+    echo -e "\n🟡 Question : Combien d’adresses IP différentes figurent dans le log ?"
+    read answer
+    if [[ "$answer" == "2" ]]; then
+        echo -e "\033[32m✅ Étape 4 validée !\033[0m"
+	echo ""
+        echo 5 > "$step_file"
+    else
+        echo -e "\033[31m❌ Mauvaise réponse. Relancez la commande d’analyse d’IP.\033[0m"
+    fi
+    exit 0
+fi
+
+# Étape 5
+if [[ "$step" == "5" ]]; then
+    echo -e "\n📘 \033[36mÉtape 5 : Lire le rapport de sécurité.\033[0m"
+    echo "Fichier à consulter : cat /tmp/security_summary.txt"
+
+    read -p "Avez-vous lu le rapport ? (y/n) : " confirm
+    if [[ "$confirm" != "y" ]]; then
+        echo -e "\033[31m💡 Conseil : cat /tmp/security_summary.txt\033[0m"
+        exit 0
+    fi
+
+    echo -e "\n🎉 \033[32mFélicitations, vous avez terminé le scénario Brute Force !\033[0m"
+    echo -e "🛡️  Pensez à sécuriser SSH, désactiver root distant, et activer fail2ban."
+    rm -f "$step_file"
+    exit 0
+fi

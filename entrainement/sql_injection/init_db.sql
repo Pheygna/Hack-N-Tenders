@@ -1,0 +1,11 @@
+DROP TABLE IF EXISTS users;
+CREATE TABLE users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT NOT NULL,
+    password TEXT NOT NULL
+);
+
+INSERT INTO users (username, password) VALUES
+('admin', '713bfda78870bf9d1b261f565286f85e97ee614efe5f0faf7c34e7ca4f65baca'),
+('alice', '4e40e8ffe0ee32fa53e139147ed559229a5930f89c2204706fc174beb36210b3'),
+('bob', '65e84be33532fb784c48129675f9eff3a682b27168c0ea744b2cf58ee02337c5');

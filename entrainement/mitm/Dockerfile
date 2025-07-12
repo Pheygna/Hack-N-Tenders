@@ -1,25 +1,22 @@
-FROM ubuntu:20.04
+FROM debian:bullseye
 
-ENV DEBIAN_FRONTEND=noninteractive
+# Installation outils
+RUN apt update && apt install -y bash iputils-ping coreutils net-tools openssl tcpdump
 
-# Installer les dépendances nécessaires
-RUN apt-get update && apt-get install -y \
-    bash curl hping3 iputils-ping net-tools coreutils && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+# Scripts
+COPY start.sh /root/start.sh
+COPY gsh /usr/local/bin/gsh
 
-# Créer un utilisateur limité
-RUN useradd -ms /bin/bash trainee
+# Fichiers du scénario MITM
+COPY network_capture.txt /opt/mitm/network_capture.txt
+COPY fake_cert.pem /opt/mitm/fake_cert.pem
+COPY intercepted_login.html /opt/mitm/intercepted_login.html
+COPY stolen_credentials.txt /opt/mitm/stolen_credentials.txt
+COPY device_config.txt /opt/mitm/device_config.txt
+COPY ssl_logs.txt /opt/mitm/ssl_logs.txt
+COPY network_traffic.txt /opt/mitm/network_traffic.txt
 
-# Définir le dossier de travail
-WORKDIR /home/trainee
+RUN chmod +x /root/start.sh /usr/local/bin/gsh
 
-# Copier le script de démarrage
-COPY start.sh /usr/local/bin/start.sh
-RUN chmod +x /usr/local/bin/start.sh
-
-# Ajuster les permissions
-RUN chown -R trainee:trainee /home/trainee
-
-# Lancer le script au démarrage
-USER trainee
-ENTRYPOINT ["/bin/bash", "/usr/local/bin/start.sh"]
+WORKDIR /root
+CMD cp /opt/mitm/* /tmp/ && bash /root/start.sh

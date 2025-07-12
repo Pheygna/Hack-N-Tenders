@@ -1,0 +1,140 @@
+#!/bin/bash
+
+step_file="/root/.sqlinj_step"
+if [ ! -f "$step_file" ]; then echo 1 > "$step_file"; fi
+step=$(cat "$step_file")
+
+# Étape 1 : Lecture du fichier de log
+if [[ "$step" == "1" ]]; then
+    echo -e "\n📘 \033[36mÉtape 1 : Lecture du journal des requêtes SQL.\033[0m"
+    echo "Fichier à consulter : /tmp/logs_sql.log"
+    echo "Utilisez la commande : cat /tmp/logs_sql.log"
+    echo -e "\033[33m(Note : La réponse ne sera disponible qu'après lecture du fichier)\033[0m"
+
+    read -p "Avez-vous lu le fichier ? (y/n) : " read_file
+    if [[ "$read_file" != "y" ]]; then
+        echo -e "\033[31mVeuillez lire le fichier avec : cat /tmp/logs_sql.log\033[0m"
+        echo "Et relancez ensuite la commande : gsh"
+        exit 0
+    fi
+
+    echo -e "\n🟡 Question : Quelle requête suspecte peut indiquer une tentative d’injection ?"
+    read user_answer
+
+    if echo "$user_answer" | grep -iqE "or.?1=1"; then
+        echo -e "\033[32m✅ Étape 1 validée !\033[0m"
+        echo "Étape suivante : Analyse de la base de données"
+        echo "Utilisez la commande : gsh"
+	echo ""
+        echo 2 > "$step_file"
+    else
+        echo -e "\033[31m❌ Mauvaise réponse. Indice : une requête toujours vraie.\033[0m"
+    fi
+    exit 0
+fi
+
+# Étape 2 : Analyse de la base SQLite
+if [[ "$step" == "2" ]]; then
+    echo -e "\033[36m🔹 Étape 2 : Analyse de la base de données SQLite.\033[0m"
+    echo "Fichier à analyser : /tmp/db.sqlite"
+    echo "Utilisez la commande : sqlite3 /tmp/db.sqlite"
+    echo -e "\033[33m(Note : Cherchez les utilisateurs ou comptes exposés)\033[0m"
+    echo
+    echo -e "\033[35m💡 Astuce : Une fois dans sqlite3, essayez les commandes suivantes :\033[0m"
+    echo -e "   \033[32m.tables\033[0m               → pour afficher les tables disponibles"
+    echo -e "   \033[32mSELECT * FROM users;\033[0m   → pour voir le contenu de la table 'users'"
+    echo -e "   \033[32m.schema users\033[0m          → pour voir la structure de la table"
+    echo
+
+    read -p "Avez-vous analysé la base ? (y/n) : " read_db
+    if [[ "$read_db" != "y" ]]; then
+      echo -e "\033[31mVeuillez ouvrir la base avec : sqlite3 /tmp/db.sqlite\033[0m"
+      echo "Et relancez ensuite la commande : gsh"
+      exit 0
+    fi
+
+    echo -e "\n🟡 Question : Combien de comptes utilisateurs y a-t-il ?"
+    read user_answer
+
+    if [[ "$user_answer" == "3" ]]; then
+        echo -e "\033[32m✅ Étape 2 validée !\033[0m"
+        echo "Étape suivante : Analyse de l’exfiltration"
+        echo "Utilisez la commande : gsh"
+	echo ""
+        echo 3 > "$step_file"
+    else
+        echo -e "\033[31m❌ Ce n’est pas le bon nombre de comptes. Vérifiez avec une requête SQL.\033[0m"
+    fi
+    exit 0
+fi
+
+# Étape 3 : Fichier d’exfiltration
+if [[ "$step" == "3" ]]; then
+    echo -e "\n📘 \033[36mÉtape 3 : Analyse du fichier d’exfiltration\033[0m"
+    echo "Fichier à consulter : /tmp/result_exfiltration.txt"
+    echo "Utilisez la commande : cat /tmp/result_exfiltration.txt"
+
+    read -p "Avez-vous lu le fichier ? (y/n) : " read_exfil
+    if [[ "$read_exfil" != "y" ]]; then
+        echo -e "\033[31mVeuillez lire le fichier avec : cat /tmp/result_exfiltration.txt\033[0m"
+        echo "Et relancez ensuite la commande : gsh"
+        exit 0
+    fi
+
+    echo -e "\n🟡 Question : Quelle donnée sensible a été exfiltrée ?"
+    read user_answer
+
+    if echo "$user_answer" | grep -iq "mot de passe\|mdp\|password"; then
+        echo -e "\033[32m✅ Étape 3 validée !\033[0m"
+        echo "Étape suivante : Analyse des hashs SHA-256"
+        echo "Utilisez la commande : gsh"
+        echo ""
+        echo 4 > "$step_file"
+    else
+        echo -e "\033[31m❌ Ce n’est pas la bonne réponse. Lisez bien le fichier.\033[0m"
+    fi
+    exit 0
+fi
+
+# Étape 4 : Décodage base64 du mot de passe
+if [[ "$step" == "4" ]]; then
+    echo -e "\n📘 \033[36mÉtape 4 : Décodage base64 du mot de passe\033[0m"
+    echo -e "Le mot de passe chiffré de l’utilisateur \033[33madmin\033[0m est : \033[33mYWRtaW5wYXNz\033[0m"
+    echo -e "\033[35m💡 Astuce : Utilisez la commande \033[32mecho '...' | base64 -d; echo\033[0m pour le décoder."
+    
+    read -p "Avez-vous lu le fichier ? (y/n) : " read_exfil
+    if [[ "$read_exfil" != "y" ]]; then
+        echo -e "\033[31mVeuillez lire le fichier avec : cat /tmp/result_exfiltration.txt\033[0m"
+        echo "Et relancez ensuite la commande : gsh"
+        exit 0
+    fi
+
+    echo -e "\n🟡 Question : Quel est le mot de passe d’origine ?"
+    read user_answer
+
+    if echo "$user_answer" | grep -iq "^adminpass$"; then
+        echo -e "\033[32m✅ Étape 4 validée !\033[0m"
+        echo -e "\n🎉 \033[32mFélicitations, vous avez terminé l'entraînement SQL Injection !\033[0m"
+        echo -e "🛡️ Pensez à vérifier vos entrées utilisateur et à protéger vos bases de données.\n"
+        rm -f "$step_file"
+    else
+        echo -e "\033[31m❌ Mauvaise réponse. Essayez avec la commande base64 -d.\033[0m"
+    fi
+    exit 0
+fi
+
+
+
+# Étape 5 : Résumé
+if [[ "$step" == "5" ]]; then
+    echo -e "\n🎯 \033[32mFélicitations, vous avez terminé l'entraînement SQL Injection !\033[0m"
+    echo -e "\n📘 \033[34mRécapitulatif :\033[0m"
+    echo "- Tentative d’injection détectée dans les logs"
+    echo "- Base de données compromise"
+    echo "- Données exfiltrées (mots de passe)"
+    echo "- Hash SHA-256 identifié et déchiffré"
+    echo
+    echo -e "🛡️ \033[33mPensez à utiliser des requêtes préparées et à protéger vos entrées utilisateur !\033[0m"
+    rm -f "$step_file"
+    exit 0
+fi

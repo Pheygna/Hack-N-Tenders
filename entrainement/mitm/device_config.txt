@@ -1,0 +1,3 @@
+DHCP enabled: Yes
+DNS server: 192.168.1.1
+Gateway: 192.168.1.100

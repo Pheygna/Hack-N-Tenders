@@ -1,0 +1,5 @@
+[INFO] TLS handshake with www.securebank.com
+[WARNING] Certificate mismatch: expected CN=www.securebank.com, got CN=man-in-the-middle.local
+[INFO] TLS connection with mail.internal.net
+[INFO] TLS handshake with api.cloudservice.io
+[WARNING] Self-signed certificate detected during handshake with www.securebank.com

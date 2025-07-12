@@ -1,12 +1,12 @@
 #!/bin/bash
-echo ""
-echo "=== Bienvenue dans la simulation d'injection SQL ==="
-echo "Une base SQLite vulnérable est prête."
-echo "Objectif : exfiltrer tous les utilisateurs via une injection SQL."
-echo ""
-echo "Étape 1 : Charger la base : sqlite3 training.db < setup.sql"
-echo "Étape 2 : Interroger la base : sqlite3 training.db"
-echo ""
-touch training.db
-sqlite3 training.db < setup.sql
-exec bash
+clear
+echo -e "📘 \033[1;35mBienvenue dans l'entraînement à la détection d'injection SQL.\033[0m"
+echo -e "🕵️ \033[1;36mUne activité suspecte a été détectée sur une application web.\033[0m"
+echo "Votre mission : analyser les fichiers de logs, la base de données SQLite,"
+echo "et les traces d’exfiltration pour comprendre ce qui s’est passé."
+echo
+echo "Pour débuter, utilisez la commande : 'gsh'"
+echo
+echo "Pas de panique, si vous êtes perdu, tapez simplement 'gsh' pour reprendre le fil."
+
+bash

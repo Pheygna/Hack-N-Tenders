@@ -1,0 +1,199 @@
+#!/bin/bash
+
+step_file="/tmp/.phish_steps"
+not_read_flag="/tmp/.not_read"
+
+# Initialisation de l'étape
+if [ ! -f "$step_file" ]; then
+  echo 1 > "$step_file"
+fi
+
+step=$(cat "$step_file")
+echo -e "\033[90mDEBUG: step=$step\033[0m"
+
+# Étape 1 : Lecture du mail
+if [ "$step" = "1" ]; then
+  echo -e "📘 \033[36mÉtape 1 : Lecture de l'email\033[0m"
+  echo ""
+  echo "Fichier à consulter : /tmp/suspect_email.txt"
+  echo "Utilisez la commande : cat /tmp/suspect_email.txt"
+  echo -e "\033[33m(Note : La réponse ne sera disponible qu'après lecture du fichier)\033[0m"
+
+  echo -ne "\nAvez-vous lu le fichier ? (y/n) : "
+  read lu
+  if [ "$lu" != "y" ]; then
+    echo -e "\033[31mVeuillez lire le fichier avec : cat /tmp/suspect_email.txt\033[0m"
+    echo "Et relancez ensuite la commande : gsh"
+    exit 0
+  fi
+
+  echo -ne "\n🟡 Tapez votre réponse : Quel est l’objet de l’email ? "
+  read user_answer
+
+  # Exemple d’acceptation de "mise à jour" ou "mise à jour de votre profil"
+  if echo "$user_answer" | grep -iq "mise à jour"; then
+    echo -e "\n✅ \033[32mÉtape 1 validée !\033[0m"
+    echo -e ""
+    echo -e "Étape suivante : Analyse du lien suspect."
+    echo -e "Utilisez la commande : gsh"
+    echo ""
+    echo 2 > "$step_file"
+  else
+    echo -e "\033[31m❌ Ce n’est pas la bonne réponse. Relisez bien le sujet de l’email.\033[0m"
+  fi
+
+  exit 0
+fi
+
+
+# Étape 2 : Vérification du domaine
+if [ "$step" = "2" ]; then
+  echo -e "\n\033[36m🔎 Étape 2 : Analyse du lien suspect dans l’email.\033[0m"
+  echo -e "Le lien affiché est : http://allopneus-rh-update.com/activation"
+  echo -e "Question : Ce domaine est-il vraiment celui d'Allopneus ?"
+  echo -e "\033[37mEntrez le domaine de l’entreprise après vérification (ex: google.com) :\033[0m"
+  read user_input
+  if [[ "$user_input" == "allopneus.com" ]]; then
+    echo -e "\033[32m✅ Étape 2 validée !\033[0m"
+    echo "Prochaine étape : vérifiez l’identité de l’expéditeur dans les en-têtes (headers)."
+    echo "Utilisez la commande : gsh"
+    echo ""
+    echo 3 > "$step_file"
+  else
+    echo -e "\033[31m❌ Ce n’est pas le bon domaine. Essayez encore.\033[0m"
+  fi
+  exit 0
+fi
+
+# Étape 3 : Analyse headers
+if [ "$step" = "3" ]; then
+    echo -e "\n\033[36m🔵 Étape 3 : Vérifiez les en-têtes d'email.\033[0m"
+    echo "Fichier à consulter : /tmp/headers.txt"
+    echo "Utilisez la commande : cat /tmp/headers.txt"
+    echo -e "\033[33m(Note : La réponse ne sera disponible qu'après lecture du fichier)\033[0m"
+
+    if [ ! -f /tmp/.headers_read ]; then
+        read -p "Avez-vous lu le fichier ? (y/n) : " user_input
+        if [[ "$user_input" =~ ^[Yy]$ ]]; then
+            touch /tmp/.headers_read
+        else
+            echo -e "\033[31mVeuillez lire le fichier avec : cat /tmp/headers.txt\033[0m"
+            echo "Et relancez ensuite la commande : gsh"
+            exit 0
+        fi
+    fi
+
+    echo -e "\nQuestion : Quelle anomalie remarquez-vous dans le champ 'From' ?"
+    read user_answer
+    if echo "$user_answer" | grep -iq "rh-update\|domaine\|inconnu\|gmail\|pass"; then
+        echo -e "\033[32m✅ Étape 3 validée !\033[0m"
+        echo "Étape suivante : Vérifiez le lien caché dans le fichier hidden_link.txt"
+        echo "Utilisez la commande : gsh"
+        echo ""
+        echo 4 > "$step_file"
+        exit 0
+    else
+        echo -e "\033[31m❌ Ce n’est pas ce qu’on attendait. Vérifie bien les headers.\033[0m"
+        exit 0
+    fi
+fi
+
+
+
+# Étape 4 : Analyse du lien caché
+if [ "$step" = "4" ]; then
+    echo -e "\n\033[36m🔷 Étape 4 : Analysez le lien caché dans /tmp/hidden_link.txt\033[0m"
+    echo "Quel est le domaine du lien caché ?"
+    echo "Utilisez la commande : cat /tmp/hidden_link.txt"
+    echo -e "\033[33m(Note : La réponse ne sera disponible qu'après lecture du fichier)\033[0m"
+
+    if [ ! -f /tmp/.hidden_link_read ]; then
+        read -p "Avez-vous lu le fichier ? (y/n) : " user_input
+        if [[ "$user_input" =~ ^[Yy]$ ]]; then
+            touch /tmp/.hidden_link_read
+        else
+            echo -e "\033[31mVeuillez lire le fichier avec : cat /tmp/hidden_link.txt\033[0m"
+            echo "Et relancez ensuite la commande : gsh"
+            exit 0
+        fi
+    fi
+
+    echo -e "\nQuestion : Quel est le domaine du lien caché ?"
+    read user_answer
+    if echo "$user_answer" | grep -iq "fake-login\|frroot\|fake-login.frroot\|"; then
+        echo -e "\033[32m✅ Étape 4 validée !\033[0m"
+        echo "Étape suivante : Continuez l'analyse du message."
+        echo "Utilisez la commande : gsh"
+        echo ""
+        echo 5 > "$step_file"
+        exit 0
+    else
+        echo -e "\033[31m❌ Ce n’est pas le bon domaine. Revérifiez le lien.\033[0m"
+        exit 0
+    fi
+fi
+
+
+# Étape 5 : Linkdn
+if [ "$step" = "5" ]; then
+  echo -e "\n\033[36m🔎 Étape 5 : Vérifiez le profil LinkedIn de l’expéditeur.\033[0m"
+  echo "Nom affiché dans l'email : Alice PIERRE"
+  echo -e "Recherchez ce nom sur LinkedIn.\n"
+  echo -e "\033[33m(Note : Utilisez un navigateur externe si nécessaire pour faire la recherche)\033[0m"
+
+  read -p "La personne travaille-t-elle réellement chez Allopneus ? (y/n) : " answer1
+  if echo "$answer1" | grep -iq "^n"; then
+    read -p "Selon le profil LinkedIn, dans quelle entreprise travaille-t-elle réellement ? : " real_company
+    if echo "$real_company" | grep -iq "Adoma\|Groupe IGS\|IGS\|pass"; then
+      echo -e "\033[32m✅ Étape 5 validée : L’identité de l’expéditeur a été falsifiée.\033[0m"
+      echo -e "Étape suivante : Inspectez la pièce jointe 'fiche.pdf.fake'"
+      echo "Utilisez la commande : gsh"
+      echo ""
+      echo 6 > "$step_file"
+      exit 0
+    else
+      echo -e "\033[31m❌ Ce n’est pas l’entreprise attendue. Revérifiez bien le profil LinkedIn.\033[0m"
+      exit 0
+    fi
+  else
+    echo -e "\033[31m❌ Revérifiez le profil LinkedIn. La personne ne semble pas liée à Allopneus.\033[0m"
+    exit 0
+  fi
+fi
+
+
+# Étape 6 : PDF
+if [ "$step" == "6" ]; then
+    echo -e "\n\033[36m🔍 Étape 6 : Analyse des connexions système.\033[0m"
+    echo "Fichier à consulter : /tmp/auth.log"
+    echo "Utilisez la commande : cat /tmp/auth.log"
+    echo -e "\033[33m(Note : La réponse ne sera disponible qu'après lecture du fichier)\033[0m"
+
+    read -p "Avez-vous lu le fichier ? (y/n) : " read_file
+    if [[ "$read_file" != "y" ]]; then
+        echo -e "\033[31mVeuillez lire le fichier avec : cat /tmp/auth.log\033[0m"
+        echo "Et relancez ensuite la commande : gsh"
+        exit 0
+    fi
+
+    echo -e "\n🟡 Question : Quelle commande inhabituelle a été exécutée récemment ?"
+    read user_answer
+    if echo "$user_answer" | grep -iq "curl\|wget\|pass"; then
+        echo -e "\033[32m✅ Étape 6 validée !\033[0m"
+        echo ""
+        echo -e "Étape suivante : \033[31mEn cours de développement !\033[0m"
+	echo ""
+        echo -e "\033[32mMERCI D'AVOIR PARTICIPE A CETTE ENTRAINEMENT !\033[0m"
+        echo 7 > "$step_file"
+	exit 0
+     else
+      echo -e "\033[31m❌ Ce n’est pas l’IP attendue. Revérifiez les logs.\033[0m"
+      exit 0
+    fi
+  else
+    echo -e "\033[31m❗Veuillez lire le fichier avec : cat /tmp/auth.log\033[0m"
+    echo "Et relancez ensuite la commande : gsh"
+    exit 0
+  fi
+fi
+

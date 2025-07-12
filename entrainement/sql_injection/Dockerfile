@@ -1,20 +1,21 @@
-FROM ubuntu:20.04
+FROM debian:bullseye
 
-ENV DEBIAN_FRONTEND=noninteractive
+# Installation des utilitaires nécessaires
+RUN apt update && apt install -y bash coreutils sqlite3
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-        sqlite3 bash && \
-    rm -rf /var/lib/apt/lists/*
+# Ajout des scripts
+COPY start.sh /root/start.sh
+COPY gsh /usr/local/bin/gsh
 
-RUN useradd -ms /bin/bash trainee
-WORKDIR /home/trainee
+# Ajout des fichiers du scénario SQL Injection
+COPY logs_sql.log /opt/sql_injection/logs_sql.log
+COPY db.sqlite /opt/sql_injection/db.sqlite
+COPY result_exfiltration.txt /opt/sql_injection/result_exfiltration.txt
+COPY index.php /opt/sql_injection/index.php
 
-COPY setup.sql /home/trainee/setup.sql
-COPY start.sh /usr/local/bin/start.sh
-RUN chmod +x /usr/local/bin/start.sh && \
-    chown -R trainee:trainee /home/trainee /usr/local/bin/start.sh
+# Droit d'exécution
+RUN chmod +x /root/start.sh /usr/local/bin/gsh
 
-USER trainee
-
-ENTRYPOINT ["/bin/bash", "/usr/local/bin/start.sh"]
+WORDIR /root
+# Copie des fichiers utiles en runtime dans /tmp/
+CMD cp /opt/sql_injection/* /tmp/ && bash /root/start.sh

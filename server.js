@@ -165,7 +165,7 @@ app.post('/update-score', async (req, res) => {
 });
 
 // WebSocket Terminal Docker
-const wss = new WebSocket.Server({ port: 8080 });
+const wss = new WebSocket.Server({ port: 8080, host: '0.0.0.0' });
 
 wss.on('connection', (ws, req) => {
     console.log('Client connecté au WebSocket');
@@ -187,7 +187,13 @@ wss.on('connection', (ws, req) => {
         imageName = 'my_image_malware';
     } else if (lesson === 'brute_force') {
         imageName = 'my_image_brute_force';
+    } if (!imageName) {
+        console.error(`❌ Aucune image Docker définie pour la leçon : ${lesson}`);
+        ws.send("Erreur : aucune image Docker trouvée pour cette leçon.");
+        ws.close();
+        return;
     }
+
 
     const containerId = `terminal_${lesson}_${uuidv4()}`;
     console.log(`Lancement du conteneur ${containerId} avec l'image ${imageName}`);

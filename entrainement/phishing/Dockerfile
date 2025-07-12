@@ -1,28 +1,18 @@
-FROM ubuntu:20.04
+FROM debian:bullseye
 
-ENV DEBIAN_FRONTEND=noninteractive
+RUN apt update && apt install -y bash coreutils
 
-# Installer les outils nécessaires en une seule couche propre
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-        bash \
-        curl \
-        coreutils \
-        iputils-ping && \
-    rm -rf /var/lib/apt/lists/*
+COPY start.sh /root/start.sh
+COPY gsh /usr/local/bin/gsh
 
-# Créer un utilisateur limité et définir le dossier de travail
-RUN useradd -ms /bin/bash trainee
-WORKDIR /home/trainee
+COPY suspect_email.txt /opt/phishing/suspect_email.txt
+COPY fiche.pdf.fake /opt/phishing/fiche.pdf.fake
+COPY hidden_link.txt /opt/phishing/hidden_link.txt
+COPY headers.txt /opt/phishing/headers.txt
+COPY auth.log /opt/phishing/auth.log
+COPY exfiltration.log /opt/phishing/exfiltration.log
 
-# Copier les fichiers et ajuster les permissions
-COPY start.sh /usr/local/bin/start.sh
-COPY suspect_email.txt ./suspect_email.txt
-RUN chmod +x /usr/local/bin/start.sh && \
-    chown -R trainee:trainee /home/trainee /usr/local/bin/start.sh
+RUN chmod +x /root/start.sh /usr/local/bin/gsh
 
-# Passer à l'utilisateur non privilégié
-USER trainee
-
-# Commande de lancement
-ENTRYPOINT ["/bin/bash", "/usr/local/bin/start.sh"]
+WORKDIR /root
+CMD ["bash", "/root/start.sh"]

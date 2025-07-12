@@ -1,0 +1,4 @@
+GET /login HTTP/1.1
+Host: example.com
+User-Agent: curl/7.58.0
+Authorization: Basic YWRtaW46cGFzc3dvcmQ=
