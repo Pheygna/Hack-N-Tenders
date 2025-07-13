@@ -107,62 +107,19 @@ app.get('/session-info', (req, res) => {
     }
 });
 
-// Progression utilisateur
-app.get('/user-progress', async (req, res) => {
-    if (!req.session.user) return res.status(401).json({ error: "Non autorisé" });
-
-    const { email, username } = req.session.user;
-
-    try {
-        const userData = await pool.query('SELECT id FROM users WHERE email = $1', [email]);
-        const userId = userData.rows[0].id;
-
-        const progress = await pool.query(`
-            SELECT lesson_name, completed, score FROM user_progress
-            WHERE user_id = $1
-        `, [userId]);
-
-        const totalScore = progress.rows.reduce((sum, row) => sum + row.score, 0);
-
-        res.json({
-            username,
-            email,
-            totalScore,
-            progress: progress.rows
-        });
-    } catch (err) {
-        console.error("Erreur user-progress :", err);
-        res.sendStatus(500);
+//Récupération info connection
+app.get('/profile-info', (req, res) => {
+    if (!req.session.user) {
+        return res.status(401).json({ error: "Non connecté" });
     }
+
+    const { username, email } = req.session.user;
+    res.json({ username, email });
 });
+
 
 app.use(express.static(path.join(__dirname, 'front')));
 
-
-// Mise à jour score scénario
-app.post('/update-score', async (req, res) => {
-    const { lesson, score } = req.body;
-    const user = req.session.user;
-
-    if (!user) return res.status(401).send("Non autorisé");
-
-    try {
-        const userData = await pool.query('SELECT id FROM users WHERE email = $1', [user.email]);
-        const userId = userData.rows[0].id;
-
-        await pool.query(`
-            INSERT INTO user_progress (user_id, lesson_name, completed, score)
-            VALUES ($1, $2, true, $3)
-            ON CONFLICT (user_id, lesson_name)
-            DO UPDATE SET completed = true, score = $3, completed_at = CURRENT_TIMESTAMP
-        `, [userId, lesson, score]);
-
-        res.sendStatus(200);
-    } catch (err) {
-        console.error("Erreur update-score :", err);
-        res.sendStatus(500);
-    }
-});
 
 // WebSocket Terminal Docker
 const wss = new WebSocket.Server({ port: 8080, host: '0.0.0.0' });

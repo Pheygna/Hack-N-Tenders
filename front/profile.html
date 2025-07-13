@@ -2,33 +2,49 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Profil</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Profil - Hack'N'Tenders</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Mon Profil</h1>
-  <div id="profile-data">Chargement...</div>
+  <header class="header">
+    <div class="header-content">
+      <img src="HACKNTENDERS.png" alt="Hack'N'Tenders Logo" class="logo">
+      <h1 class="title">Hack'N'Tenders</h1>
+    </div>
+    <nav class="navbar">
+      <button class="nav-btn" onclick="location.href='home.html'">Accueil</button>
+      <button class="nav-btn" onclick="location.href='/logout'">Se déconnecter</button>
+    </nav>
+  </header>
+
+  <main class="main-content">
+    <section class="login-section">
+      <h2>Mon Profil</h2>
+      <div id="profile-data">Chargement...</div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2024 Hack'N'Tenders - Tous droits réservés.</p>
+  </footer>
 
   <script>
-    fetch('/user-progress')
-      .then(res => res.json())
+    fetch('/profile-info', { credentials: "include" })
+      .then(res => {
+        if (!res.ok) throw new Error("Non connecté");
+        return res.json();
+      })
       .then(data => {
         const html = `
           <p><strong>Nom d'utilisateur :</strong> ${data.username}</p>
           <p><strong>Email :</strong> ${data.email}</p>
-          <p><strong>Score total :</strong> ${data.totalScore}</p>
-          <h3>Progression :</h3>
-          <ul>
-            ${data.progress.map(p => `<li>${p.lesson_name} — ${p.score} pts</li>`).join("")}
-          </ul>
         `;
         document.getElementById("profile-data").innerHTML = html;
       })
       .catch(err => {
-	  console.error("Erreur dans fetch /user-progress :", err);
-	  document.getElementById("profile-data").textContent = "Erreur de chargement des données.";
-	});
-
+        console.error("Erreur de chargement du profil :", err);
+        document.getElementById("profile-data").textContent = "Erreur de chargement des données.";
+      });
   </script>
 </body>
 </html>
