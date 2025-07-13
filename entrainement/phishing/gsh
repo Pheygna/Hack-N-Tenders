@@ -9,7 +9,7 @@ if [ ! -f "$step_file" ]; then
 fi
 
 step=$(cat "$step_file")
-echo -e "\033[90mDEBUG: step=$step\033[0m"
+
 
 # Étape 1 : Lecture du mail
 if [ "$step" = "1" ]; then
@@ -139,7 +139,7 @@ if [ "$step" = "5" ]; then
   echo -e "\n\033[36m🔎 Étape 5 : Vérifiez le profil LinkedIn de l’expéditeur.\033[0m"
   echo "Nom affiché dans l'email : Alice PIERRE"
   echo -e "Recherchez ce nom sur LinkedIn.\n"
-  echo -e "\033[33m(Note : Utilisez un navigateur externe si nécessaire pour faire la recherche)\033[0m"
+  echo -e "\033[33m(Note : Utilisez un navigateur externe si nécessaire pour faire la recherche, Indice = alice-pierre-141a1b15a)\033[0m"
 
   read -p "La personne travaille-t-elle réellement chez Allopneus ? (y/n) : " answer1
   if echo "$answer1" | grep -iq "^n"; then

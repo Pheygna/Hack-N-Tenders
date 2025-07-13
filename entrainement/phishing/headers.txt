@@ -1,5 +1,5 @@
 Received: from unknown (HELO mail.rh-update.com)
-From: Caroline Orsi <caroline.orsi@rh-update.com>
+From: Alice PIERRE <alice.pierre@rh-update.com>
 To: Vous
 Subject: Mise à jour urgente
 SPF: FAIL
