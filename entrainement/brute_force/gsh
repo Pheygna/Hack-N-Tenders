@@ -6,7 +6,7 @@ step=$(cat "$step_file")
 
 # Étape 1
 if [[ "$step" == "1" ]]; then
-    echo -e "\n🔎 \033[36mÉtape 1 : Analyser les logs d'authentification.\033[0m"
+    echo -e "\n🔎 Étape 1 : Analyser les logs d'authentification."
     echo "Commande utile : grep 'Failed password' /tmp/auth_attempts.log"
 
     read -p "Avez-vous identifié les tentatives échouées ? (y/n) : " confirm
@@ -29,7 +29,7 @@ fi
 
 # Étape 2
 if [[ "$step" == "2" ]]; then
-    echo -e "\n🔎 \033[36mÉtape 2 : Rechercher les connexions réussies.\033[0m"
+    echo -e "\n🔎 Étape 2 : Rechercher les connexions réussies."
     echo "Commande utile : grep 'Accepted password' /tmp/auth_attempts.log"
 
     read -p "Avez-vous trouvé une connexion réussie suspecte ? (y/n) : " confirm
@@ -52,7 +52,7 @@ fi
 
 # Étape 3
 if [[ "$step" == "3" ]]; then
-    echo -e "\n📘 \033[36mÉtape 3 : Identifier les mots de passe faibles utilisés.\033[0m"
+    echo -e "\n📘 Étape 3 : Identifier les mots de passe faibles utilisés."
     echo "Commande utile : grep -Ff /tmp/common_passwords.txt /tmp/auth_attempts.log"
 
     read -p "Avez-vous repéré un mot de passe faible utilisé ? (y/n) : " confirm
@@ -75,7 +75,7 @@ fi
 
 # Étape 4
 if [[ "$step" == "4" ]]; then
-    echo -e "\n🔎 \033[36mÉtape 4 : Utiliser les outils pour extraire les IP uniques.\033[0m"
+    echo -e "\n🔎 Étape 4 : Utiliser les outils pour extraire les IP uniques."
     echo "Commande utile : awk '{print \$11}' /tmp/auth_attempts.log | sort | uniq -c"
 
     read -p "Avez-vous extrait les IP ? (y/n) : " confirm
@@ -98,7 +98,7 @@ fi
 
 # Étape 5
 if [[ "$step" == "5" ]]; then
-    echo -e "\n📘 \033[36mÉtape 5 : Lire le rapport de sécurité.\033[0m"
+    echo -e "\n📘 Étape 5 : Lire le rapport de sécurité."
     echo "Fichier à consulter : cat /tmp/security_summary.txt"
 
     read -p "Avez-vous lu le rapport ? (y/n) : " confirm

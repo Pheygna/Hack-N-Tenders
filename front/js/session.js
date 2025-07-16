@@ -29,9 +29,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     </button>
                     <div class="dropdown-content">
                         <p><strong>Email:</strong> ${data.email}</p>
-                        <a href="/profile.html">Profil</a>
-                        <a href="/logout">Se déconnecter</a>
-                    </div>
+                        <button class="nav-btn" onclick="location.href='profile.html'">Profil</button>
+                        <button class="nav-btn" onclick="location.href='/logout'">Déconnexion</button>
+                   </div>
                 `;
 
                 // Afficher / cacher le menu au survol
