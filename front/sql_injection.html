@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,7 +26,9 @@
 <body>
 <header class="header">
     <div class="header-content">
-        <img src="HACKNTENDERS.png" alt="Hack'N'Tenders Logo" class="logo">
+        <a href="home.html">
+            <img src="HACKNTENDERS.png" alt="Hack'N'Tenders Logo" class="logo">
+        </a>
         <h1 class="title">Hack'N'Tenders</h1>
         <div class="header-right">
             <button class="theme-toggle-btn" onclick="toggleTheme()">
@@ -63,6 +65,57 @@
             }
         </script>
     </section>
+
+    <section class="sql-cards">
+
+        <div class="info-card">
+            <h3>💥 Qu’est-ce qu’une injection SQL ?</h3>
+            <p>Une injection SQL est une attaque qui exploite une faille dans les formulaires web ou les requêtes SQL mal sécurisées, permettant à un attaquant d’exécuter du code malveillant dans la base de données.</p>
+        </div>
+
+        <div class="info-card">
+            <h3>🧪 Comment ça fonctionne ?</h3>
+            <p>Un champ de saisie (ex: identifiant) est manipulé pour injecter une commande SQL (comme <code>' OR 1=1 --</code>) dans une requête. L'attaquant peut alors contourner l'authentification ou accéder aux données sans autorisation.</p>
+        </div>
+
+        <div class="info-card">
+            <h3>📌 Exemples d’exploitation</h3>
+            <ul>
+                <li>Connexion sans mot de passe grâce à <code>' OR 1=1 --</code></li>
+                <li>Récupération de toutes les données utilisateur</li>
+                <li>Suppression ou modification des tables de la base</li>
+            </ul>
+        </div>
+
+        <div class="info-card">
+            <h3>⚠️ Risques</h3>
+            <ul>
+                <li>Vol massif de données sensibles</li>
+                <li>Destruction ou corruption de base de données</li>
+                <li>Prise de contrôle totale de l’application</li>
+            </ul>
+        </div>
+
+        <div class="info-card">
+            <h3>🛡️ Comment s’en protéger ?</h3>
+            <ul>
+                <li>Utiliser des requêtes préparées (requêtes paramétrées)</li>
+                <li>Échapper correctement les caractères spéciaux</li>
+                <li>Limiter les droits SQL (principes du moindre privilège)</li>
+                <li>Ne jamais faire confiance aux données saisies par l’utilisateur</li>
+            </ul>
+        </div>
+
+        <div class="info-card">
+            <h3>🔗 Ressources utiles</h3>
+            <p>
+                <a href="https://owasp.org/www-community/attacks/SQL_Injection" target="_blank">OWASP – SQL Injection</a><br>
+                <a href="https://www.acsirt.org/sql-injection/" target="_blank">ACSIRT – SQLi</a>
+            </p>
+        </div>
+
+    </section>
+
 </main>
 
 <footer class="footer">

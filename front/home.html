@@ -1,4 +1,4 @@
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -51,10 +51,49 @@
     <section class="intro-section">
         <h2>Bienvenue sur Hack'N'Tenders</h2>
         <p>
-            Ce site vise à sensibiliser aux cyberattaques en proposant des tutoriels interactifs. <br>
-            Découvrez des conseils et des outils pour protéger vos données.
+            Hack'N'Tenders est une plateforme interactive de sensibilisation à la cybersécurité. <br> <br>
+            Grâce à des exercices concrets, vous pourrez découvrir les techniques de piratage les plus courantes et apprendre à vous en protéger. <br> <br>
+            Bruteforce, phishing, Man-in-the-middle, injections SQL, malware... <br> devenez acteur de votre sécurité numérique !
         </p>
     </section>
+
+    <section class="exercise-section">
+        <h2>Nos Exercices</h2>
+        <div class="card-container">
+
+            <div class="exercise-card" onclick="location.href='bruteforce.html'">
+                <img src="bruteforce.png" alt="Brute Force">
+                <h3>Brute Force</h3>
+                <p>Découvrez comment les attaques par force brute fonctionnent et comment s’en défendre efficacement.</p>
+            </div>
+
+            <div class="exercise-card" onclick="location.href='phishing.html'">
+                <img src="phishing.png" alt="Phishing">
+                <h3>Phishing</h3>
+                <p>Apprenez à reconnaître les tentatives de phishing et protégez-vous des pièges les plus courants.</p>
+            </div>
+
+            <div class="exercise-card" onclick="location.href='mitm.html'">
+                <img src="mitm.png" alt="Man in the Middle">
+                <h3>Man-in-the-middle</h3>
+                <p>Simulez une attaque MiTM et comprenez comment les données peuvent être interceptées en réseau.</p>
+            </div>
+
+            <div class="exercise-card" onclick="location.href='sql_injection.html'">
+                <img src="sqlinjection.png" alt="Injection SQL">
+                <h3>Injection SQL</h3>
+                <p>Explorez les failles d’injection SQL pour apprendre à les exploiter et surtout à les corriger.</p>
+            </div>
+
+            <div class="exercise-card" onclick="location.href='malware.html'">
+                <img src="malware.png" alt="Malware">
+                <h3>Malware</h3>
+                <p>Analysez un exemple de malware pour comprendre ses mécanismes et renforcer votre sécurité.</p>
+            </div>
+
+        </div>
+    </section>
+
 </main>
 
 <footer class="footer">

@@ -86,11 +86,7 @@ body {
 
 /* Section principale */
 .main-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     text-align: center;
-    height: 70vh;
     padding: 20px;
 }
 
@@ -118,6 +114,7 @@ body {
 
 /* Style pour la section "À propos" */
 .about-section, .mission-section {
+    border: 1px solid #ffc107;
     max-width: 800px;
     margin: 20px auto;
     padding: 20px;
@@ -142,6 +139,7 @@ p {
 
 /* Formulaire de connexion */
 .login-section {
+    border: 1px solid #ffc107;
     text-align: center;
     padding: 20px;
     background-color: #1f1f1f;
@@ -221,6 +219,7 @@ input:focus {
 
 /* Formulaire d'inscription */
 .signup-section {
+    border: 1px solid #ffc107;
     text-align: center;
     padding: 20px;
     background-color: #1f1f1f;
@@ -412,4 +411,172 @@ body[data-theme="light"] .footer {
 
 .profile-menu:hover .dropdown-content {
     display: block;
+}
+
+@media (max-width: 600px) {
+    .header-content, .navbar, .main-content, .footer {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .header-right {
+        flex-direction: column;
+        margin-top: 10px;
+    }
+    .nav-btn, .auth-btn {
+        width: 100%;
+        margin: 5px 0;
+    }
+    .logo {
+        width: 80px;
+        height: auto;
+    }
+}
+
+.exercise-section {
+    margin-top: 3rem;
+    padding: 2rem;
+    color: white;
+    text-align: center;
+}
+
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.exercise-card {
+    background-color: #1e1e1e;
+    border: 1px solid #ffc107;
+    border-radius: 10px;
+    width: 250px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    box-shadow: 0 0 10px rgba(255, 193, 7, 0.3);
+}
+
+.exercise-card:hover {
+    transform: scale(1.05);
+}
+
+.exercise-card img {
+    width: 100%;
+    height: 140px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    object-fit: cover;
+}
+
+.exercise-card h3 {
+    margin: 0.5rem 0;
+    color: #ffc107;
+}
+
+.exercise-card p {
+    background: transparent !important; /* on supprime tout fond blanc */
+    color: #ffffff !important;
+    padding: 0 1rem 1rem 1rem;
+    font-size: 0.9rem;
+}
+
+.intro-section {
+    margin-bottom: 4rem; /* espace sous l’intro */
+    padding: 2rem;
+    text-align: center;
+    color: white;
+}
+
+.exercise-section {
+    padding: 2rem;
+    color: white;
+    text-align: center;
+}
+
+.intro-section p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    color: #f0f0f0;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Section d'information en cards */
+.malware-cards,
+.sql-cards,
+.mitm-cards,
+.phishing-cards,
+.bruteforce-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.info-card {
+    background-color: #1e1e1e;
+    border: 1px solid #ffc107;
+    border-radius: 10px;
+    padding: 1.5rem;
+    width: 300px;
+    box-shadow: 0 0 10px rgba(255, 193, 7, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-5px);
+}
+
+.info-card h3 {
+    color: #ffc107;
+    font-size: 1.2em;
+    margin-bottom: 0.5rem;
+}
+
+.info-card p,
+.info-card ul {
+    background: transparent !important; /* on supprime tout fond blanc */
+    color: #ffffff !important;
+    font-size: 0.95em;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.info-card ul {
+    margin-top: 0.5rem;
+    padding-left: 1.2rem;
+    list-style-type: disc;
+}
+
+.info-card a {
+    color: #4da6ff;
+    text-decoration: none;
+}
+
+.info-card a:hover {
+    text-decoration: underline;
+}
+
+/* style pour le bouton terminal */
+.terminal-btn {
+    background-color: #ffc107;
+    color: #1e1e1e;
+    font-weight: bold;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 0 10px rgba(255, 193, 7, 0.3);
+    margin-top: 1rem;
+}
+
+.terminal-btn:hover {
+    background-color: #e0a800;
+    transform: translateY(-2px);
 }

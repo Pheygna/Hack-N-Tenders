@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -55,7 +55,7 @@
     <section class="intro-section">
         <h2>Phishing</h2>
         <p>
-            Découvrez comment fonctionne le phishing et comment s'en protéger.
+            Découvrez comment fonctionne le phishing et comment s'en protéger. <br>
             Cliquez sur le bouton ci-dessous pour lancer un terminal simulant une attaque.
         </p>
         <button class="terminal-btn" onclick="openTerminal('phishing')">Lancer le terminal</button>
@@ -66,8 +66,49 @@
                 window.open(`terminal.html?lesson=${lesson}`, '_blank');
             }
         </script>
+    </section>
+
+    <section class="phishing-cards">
+
+        <div class="info-card">
+            <h3>🎣 Qu’est-ce que le phishing ?</h3>
+            <p>Le phishing, ou hameçonnage, est une technique de fraude visant à tromper les utilisateurs pour obtenir leurs données personnelles ou bancaires via des messages ou sites frauduleux.</p>
+        </div>
+
+        <div class="info-card">
+            <h3>🧪 Comment ça fonctionne ?</h3>
+            <p>Les attaquants se font passer pour des entités de confiance (banques, administrations, entreprises) en envoyant des emails ou SMS contenant des liens piégés menant à des faux sites.</p>
+        </div>
+
+        <div class="info-card">
+            <h3>⚠️ Exemples de phishing</h3>
+            <ul>
+                <li>Email de "votre banque" vous demandant de confirmer vos identifiants</li>
+                <li>SMS vous informant d’un colis à payer via un lien</li>
+                <li>Faux site imitant un service officiel (CAF, Ameli...)</li>
+            </ul>
+        </div>
+
+        <div class="info-card">
+            <h3>🔐 Comment se protéger ?</h3>
+            <ul>
+                <li>Ne jamais cliquer sur un lien suspect</li>
+                <li>Vérifier l’expéditeur et l’URL</li>
+                <li>Activer la double authentification (2FA)</li>
+                <li>Utiliser un filtre anti-phishing ou antivirus à jour</li>
+            </ul>
+        </div>
+
+        <div class="info-card">
+            <h3>🔗 Pour aller plus loin</h3>
+            <p>
+                <a href="https://www.cybermalveillance.gouv.fr/tous-nos-contenus/fiches-reflexes/hameconnage-ou-phishing" target="_blank">Cybermalveillance.gouv.fr – Hameçonnage</a><br>
+                <a href="https://www.signal-spam.fr/" target="_blank">Signaler un phishing – Signal Spam</a>
+            </p>
+        </div>
 
     </section>
+
 </main>
 
 <footer class="footer">

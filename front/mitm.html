@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,8 +26,9 @@
 <body>
 <header class="header">
     <div class="header-content">
-        <img src="HACKNTENDERS.png" alt="Hack'N'Tenders Logo" class="logo">
-        <h1 class="title">Hack'N'Tenders</h1>
+        <a href="home.html">
+            <img src="HACKNTENDERS.png" alt="Hack'N'Tenders Logo" class="logo">
+        </a>        <h1 class="title">Hack'N'Tenders</h1>
         <div class="header-right">
             <button class="theme-toggle-btn" onclick="toggleTheme()">
                 <span id="theme-icon">&#9728;</span> <!-- Lune noire -->
@@ -63,6 +64,57 @@
             }
         </script>
     </section>
+
+    <section class="mitm-cards">
+
+        <div class="info-card">
+            <h3>🕵️‍♂️ Qu’est-ce qu’une attaque MITM ?</h3>
+            <p>Une attaque de type "Man-in-the-Middle" permet à un cybercriminel de s’insérer discrètement entre deux parties qui communiquent pour écouter, modifier ou détourner les échanges sans que les victimes ne s’en aperçoivent.</p>
+        </div>
+
+        <div class="info-card">
+            <h3>🔍 Méthode d’exécution</h3>
+            <p>Le pirate intercepte la communication en se plaçant sur le même réseau (ex : Wi-Fi public) ou en usurpant l'identité d'une machine. Il peut ensuite capturer des données sensibles comme des mots de passe ou rediriger l'utilisateur vers des sites frauduleux.</p>
+        </div>
+
+        <div class="info-card">
+            <h3>📌 Exemples d’attaques MITM</h3>
+            <ul>
+                <li>Ecoute sur un réseau Wi-Fi non sécurisé</li>
+                <li>DNS Spoofing (redirection vers un faux site)</li>
+                <li>Session hijacking (vol d’identifiants via cookies)</li>
+            </ul>
+        </div>
+
+        <div class="info-card">
+            <h3>⚠️ Risques encourus</h3>
+            <ul>
+                <li>Vol de mots de passe et données bancaires</li>
+                <li>Espionnage des communications</li>
+                <li>Accès non autorisé à des services personnels</li>
+            </ul>
+        </div>
+
+        <div class="info-card">
+            <h3>🛡️ Comment se protéger ?</h3>
+            <ul>
+                <li>Éviter les connexions sur des réseaux publics non sécurisés</li>
+                <li>Utiliser le HTTPS (et vérifier le cadenas dans l’URL)</li>
+                <li>Activer le chiffrement de bout en bout</li>
+                <li>Utiliser un VPN sur les réseaux publics</li>
+            </ul>
+        </div>
+
+        <div class="info-card">
+            <h3>🔗 Pour aller plus loin</h3>
+            <p>
+                <a href="https://www.cybermalveillance.gouv.fr/tous-nos-contenus/fiches-reflexes/attaque-man-in-the-middle" target="_blank">Cybermalveillance – MITM</a><br>
+                <a href="https://fr.wikipedia.org/wiki/Attaque_de_l%27homme_du_milieu" target="_blank">Wikipedia – Attaque MITM</a>
+            </p>
+        </div>
+
+    </section>
+
 </main>
 
 <footer class="footer">

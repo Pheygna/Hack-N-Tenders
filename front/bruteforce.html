@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,23 +15,30 @@
 
         if (currentTheme === "dark") {
             body.setAttribute("data-theme", "light");
-            icon.innerHTML = "&#9790;"; // soleil noir
+            icon.innerHTML = "&#9790;";
         } else {
             body.setAttribute("data-theme", "dark");
-            icon.innerHTML = "&#9728;"; // lune noire
+            icon.innerHTML = "&#9728;";
         }
+    }
+
+    function openTerminal(lesson) {
+        window.open(`terminal.html?lesson=${lesson}`, '_blank');
     }
 </script>
 
-<body>
+<body data-theme="dark">
 <header class="header">
     <div class="header-content">
-        <img src="HACKNTENDERS.png" alt="Hack'N'Tenders Logo" class="logo">
+        <a href="home.html">
+            <img src="HACKNTENDERS.png" alt="Hack'N'Tenders Logo" class="logo">
+        </a>
         <h1 class="title">Hack'N'Tenders</h1>
         <div class="header-right">
             <button class="theme-toggle-btn" onclick="toggleTheme()">
-                <span id="theme-icon">&#9728;</span> <!-- Lune noire -->
-            </button>            <div class="auth-buttons">
+                <span id="theme-icon">&#9728;</span>
+            </button>
+            <div class="auth-buttons">
                 <button class="auth-btn" onclick="location.href='login.html'">Se connecter</button>
                 <button class="auth-btn" onclick="location.href='register.html'">Créer un compte</button>
             </div>
@@ -39,9 +46,9 @@
     </div>
     <nav class="navbar">
         <button class="nav-btn" onclick="location.href='home.html'">Accueil</button>
-        <button class="nav-btn" onclick="location.href='sql_injection.html'">Injections SQL</button>
         <button class="nav-btn" onclick="location.href='phishing.html'">Phishing</button>
         <button class="nav-btn" onclick="location.href='mitm.html'">Man-in-the-middle</button>
+        <button class="nav-btn" onclick="location.href='sql_injection.html'">Injections SQL</button>
         <button class="nav-btn" onclick="location.href='malware.html'">Malware</button>
         <button class="nav-btn" onclick="location.href='about.html'">À propos</button>
     </nav>
@@ -51,17 +58,52 @@
     <section class="intro-section">
         <h2>Brute Force</h2>
         <p>
-            Découvrez comment une attaque par Brute Force permet de casser un mot de passe en testant de nombreuses combinaisons. <br>
-            Cliquez sur le bouton ci-dessous pour lancer une simulation dans un terminal.
+            Une attaque par Brute Force consiste à tester automatiquement un très grand nombre de mots de passe jusqu’à trouver le bon. <br>
+            Cette méthode simple, mais redoutable, est l'une des plus utilisées contre les comptes peu protégés.
         </p>
         <button class="terminal-btn" onclick="openTerminal('brute_force')">Lancer le terminal</button>
-	<script>
-            function openTerminal(lesson) {
-                // Redirige vers la page du terminal
-                window.open(`terminal.html?lesson=${lesson}`, '_blank');
-            }
-        </script>
     </section>
+
+    <section class="bruteforce-cards">
+
+        <div class="info-card">
+            <h3>🧠 Qu’est-ce qu’une attaque Brute Force ?</h3>
+            <p>Elle consiste à tester automatiquement de nombreuses combinaisons de mots de passe jusqu'à trouver le bon. Elle vise les mots de passe faibles ou courants.</p>
+        </div>
+
+        <div class="info-card">
+            <h3>⚙️ Fonctionnement</h3>
+            <p>Un script teste toutes les combinaisons possibles ou utilise un dictionnaire. Plus le mot de passe est simple, plus l’accès est rapide à obtenir.</p>
+        </div>
+
+        <div class="info-card">
+            <h3>🚨 Risques</h3>
+            <ul>
+                <li>Vol de données</li>
+                <li>Usurpation d'identité</li>
+                <li>Accès non autorisé aux comptes</li>
+            </ul>
+        </div>
+
+        <div class="info-card">
+            <h3>🛡️ Se protéger</h3>
+            <ul>
+                <li>Mot de passe long et complexe</li>
+                <li>Double authentification (2FA)</li>
+                <li>Limitation des tentatives</li>
+            </ul>
+        </div>
+
+        <div class="info-card">
+            <h3>🔗 Ressources</h3>
+            <p>
+                <a href="https://owasp.org/www-community/attacks/Brute_force_attack" target="_blank">Brute Force - OWASP</a><br>
+                <a href="https://www.cybermalveillance.gouv.fr" target="_blank">Cybermalveillance.gouv.fr</a>
+            </p>
+        </div>
+
+    </section>
+
 </main>
 
 <footer class="footer">
@@ -70,10 +112,5 @@
 
 <script src="js/session.js"></script>
 
-<script>
-    function launchTerminal(lesson) {
-        window.open(`terminal.html?lesson=${lesson}`, '_blank');
-    }
-</script>
 </body>
 </html>
